@@ -1,0 +1,93 @@
+.shell {
+  min-height: 70vh;
+  background: var(--bg);
+}
+
+/* 전체화면일 때도 배경과 스크롤을 유지 */
+.shell:fullscreen {
+  overflow: auto;
+  background: var(--bg);
+}
+
+.bar {
+  background: var(--white);
+  border-bottom: 2px solid var(--line);
+}
+
+.barInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  color: var(--accent-dark);
+}
+
+.back:hover {
+  background: var(--bg);
+}
+
+.title {
+  flex: 1;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.3;
+}
+
+.fs {
+  min-height: 48px;
+  padding: 0 18px;
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.fs:hover {
+  background: var(--bg);
+}
+
+.stage {
+  padding-top: 8px;
+  padding-bottom: 32px;
+}
+
+.tips {
+  max-width: 640px;
+  margin: 0 auto 40px;
+  padding: 16px 22px;
+  background: var(--white);
+  border: 2px solid var(--line-strong);
+  border-radius: 20px;
+}
+
+.tips summary {
+  min-height: 40px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tips ul {
+  margin-top: 8px;
+  padding-left: 1.2rem;
+  font-size: 0.9rem;
+  color: var(--text-sub);
+}
+
+.tips li {
+  margin-bottom: 4px;
+}

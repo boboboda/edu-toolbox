@@ -1,0 +1,11 @@
+services:
+  edu-toolbox:
+    build: .
+    container_name: edu-toolbox
+    restart: unless-stopped
+    ports:
+      - "${EDU_BIND:-127.0.0.1}:5100:3000"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
