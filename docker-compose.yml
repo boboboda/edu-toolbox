@@ -3,6 +3,10 @@ services:
     build: .
     container_name: edu-toolbox
     restart: unless-stopped
+    environment:
+      # 같은 폴더의 .env 파일 값을 읽어 와요 (git 에는 올리지 않는 파일)
+      EDU_API_KEY: ${EDU_API_KEY:-}
+      HOMEPAGE_API_URL: ${HOMEPAGE_API_URL:-https://www.buyoungsilcoding.com}
     ports:
       - "${EDU_BIND:-127.0.0.1}:5100:3000"
     security_opt:

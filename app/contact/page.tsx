@@ -1,47 +1,35 @@
-// app/request/page.tsx — 앱·도구 요청 게시판 목록
+// app/contact/page.tsx — 문의 게시판 목록 (홈페이지 프로젝트 문의 게시판과 같은 글)
 import type { Metadata } from "next";
 import Link from "next/link";
 
 import { homepageFetch } from "@/lib/homepage";
-import {
-  formatDate,
-  statusLabel,
-  type BoardListItem,
-} from "@/lib/board";
-import styles from "./request.module.css";
+import { formatDate, type InquiryListItem } from "@/lib/board";
+import styles from "../request/request.module.css";
 
 export const metadata: Metadata = {
-  title: "앱·도구 요청",
-  description: "필요한 특수교육 도구나 앱을 요청해 주세요.",
+  title: "문의하기",
+  description: "특수교육 도구함에 대한 궁금한 점과 불편한 점을 남겨 주세요.",
 };
 
 type ListResponse = {
-  posts?: BoardListItem[];
+  posts?: InquiryListItem[];
   total?: number;
-  page?: number;
   pageSize?: number;
 };
 
-const badgeClass = (status: string) =>
-  [
-    styles.badge,
-    status === "reviewing" ? styles.badgeReviewing : "",
-    status === "planned" ? styles.badgePlanned : "",
-    status === "done" ? styles.badgeDone : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-export default async function RequestPage({
+export default async function ContactPage({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const raw = (await searchParams).page;
-  const page = Math.max(1, parseInt(Array.isArray(raw) ? raw[0] : (raw ?? "1"), 10) || 1);
+  const page = Math.max(
+    1,
+    parseInt(Array.isArray(raw) ? raw[0] : (raw ?? "1"), 10) || 1,
+  );
 
   const result = await homepageFetch<ListResponse>(
-    `/api/edu/posts?board=request&page=${page}`,
+    `/api/edu/inquiries?page=${page}`,
   );
 
   const posts = result.data.posts ?? [];
@@ -52,40 +40,38 @@ export default async function RequestPage({
   return (
     <div className="container">
       <div className={styles.wrap}>
-        <h1 className={styles.title}>앱·도구 요청</h1>
+        <h1 className={styles.title}>문의하기</h1>
         <p className={styles.lead}>
-          수업에 필요한 도구나 앱이 있다면 알려 주세요. 로그인 없이 닉네임과 비밀번호만으로
-          쓸 수 있고, 요청이 많은 것부터 차례로 만들어요. 개인적인 문의는{" "}
-          <Link href="/contact">문의하기</Link>를 이용해 주세요.
+          사용 중 궁금한 점이나 불편한 점을 남겨 주세요. 로그인 없이 닉네임만 적으면 돼요. 새로운
+          도구나 앱이 필요하다면 <Link href="/request">앱·도구 요청</Link>에 남겨 주세요.
         </p>
 
         <div className={styles.topBar}>
-          <p className={styles.count}>
-            {result.ok ? `요청 ${total}개` : ""}
-          </p>
-          <Link href="/request/write" className="btn btn-primary">
-            요청 글 쓰기
+          <p className={styles.count}>{result.ok ? `문의 ${total}개` : ""}</p>
+          <Link href="/contact/write" className="btn btn-primary">
+            문의 글 쓰기
           </Link>
         </div>
 
         {!result.ok ? (
           <div className={styles.error} role="alert">
-            게시판을 불러오지 못했어요. 잠시 후 다시 시도해 주세요.
+            {result.status === 503
+              ? "문의 게시판을 준비하고 있어요. 조금만 기다려 주세요."
+              : "게시판을 불러오지 못했어요. 잠시 후 다시 시도해 주세요."}
           </div>
         ) : posts.length === 0 ? (
           <div className={styles.empty}>
             {page > 1
               ? "이 페이지에는 글이 없어요."
-              : "아직 요청이 없어요. 첫 번째 요청을 남겨 주세요!"}
+              : "아직 문의가 없어요. 궁금한 점을 남겨 주세요!"}
           </div>
         ) : (
           <ul className={styles.list}>
             {posts.map((p) => (
               <li key={p.id}>
-                <Link href={`/request/${p.id}`} className={styles.item}>
+                <Link href={`/contact/${p.id}`} className={styles.item}>
                   <h2 className={styles.itemTitle}>{p.title}</h2>
                   <div className={styles.meta}>
-                    <span className={badgeClass(p.status)}>{statusLabel(p.status)}</span>
                     <span>{p.nickname}</span>
                     <span>{formatDate(p.createdAt)}</span>
                     {p.replyCount > 0 && <span>답변 {p.replyCount}</span>}
@@ -99,7 +85,7 @@ export default async function RequestPage({
         {result.ok && lastPage > 1 && (
           <nav className={styles.pager} aria-label="쪽 이동">
             {page > 1 ? (
-              <Link className="btn btn-outline btn-small" href={`/request?page=${page - 1}`}>
+              <Link className="btn btn-outline btn-small" href={`/contact?page=${page - 1}`}>
                 이전
               </Link>
             ) : null}
@@ -107,7 +93,7 @@ export default async function RequestPage({
               {page} / {lastPage}
             </span>
             {page < lastPage ? (
-              <Link className="btn btn-outline btn-small" href={`/request?page=${page + 1}`}>
+              <Link className="btn btn-outline btn-small" href={`/contact?page=${page + 1}`}>
                 다음
               </Link>
             ) : null}

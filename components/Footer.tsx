@@ -12,7 +12,8 @@ export default function Footer() {
         <nav className="footer-links" aria-label="하단 메뉴">
           <Link href="/about">만든 사람</Link>
           <Link href="/about#privacy">개인정보 안내</Link>
-          <Link href="/request">문의·요청</Link>
+          <Link href="/request">앱·도구 요청</Link>
+          <Link href="/contact">문의하기</Link>
         </nav>
       </div>
     </footer>
