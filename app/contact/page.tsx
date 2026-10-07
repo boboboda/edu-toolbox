@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { homepageFetch } from "@/lib/homepage";
+import { homepageFetch, inquiryPath } from "@/lib/homepage";
 import { formatDate, type InquiryListItem } from "@/lib/board";
 import styles from "../request/request.module.css";
 
@@ -28,9 +28,7 @@ export default async function ContactPage({
     parseInt(Array.isArray(raw) ? raw[0] : (raw ?? "1"), 10) || 1,
   );
 
-  const result = await homepageFetch<ListResponse>(
-    `/api/edu/inquiries?page=${page}`,
-  );
+  const result = await homepageFetch<ListResponse>(inquiryPath(`?page=${page}`));
 
   const posts = result.data.posts ?? [];
   const total = result.data.total ?? 0;
@@ -55,7 +53,7 @@ export default async function ContactPage({
 
         {!result.ok ? (
           <div className={styles.error} role="alert">
-            {result.status === 503
+            {result.status === 404 || result.status === 503
               ? "문의 게시판을 준비하고 있어요. 조금만 기다려 주세요."
               : "게시판을 불러오지 못했어요. 잠시 후 다시 시도해 주세요."}
           </div>

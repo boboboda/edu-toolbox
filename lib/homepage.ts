@@ -5,6 +5,15 @@
 //   HOMEPAGE_API_URL  홈페이지 주소 (기본값: https://www.buyoungsilcoding.com)
 
 const DEFAULT_BASE_URL = "https://www.buyoungsilcoding.com";
+
+// 문의 게시판을 쓰는 홈페이지 프로젝트의 슬러그 (프로젝트를 만들 때 자동으로 생기는 주소용 이름).
+// 홈페이지의 /project/<슬러그>/board/post 와 같은 게시판이다. 바꿔야 하면 EDU_PROJECT_SLUG 로 덮어쓴다.
+const PROJECT_SLUG =
+  process.env.EDU_PROJECT_SLUG || "cmuy2eaqm0002n31zu8kwo5uz-teugsugyoyug-doguham";
+
+// 문의 게시판 API 주소. suffix 예: "?page=2", "/글id"
+export const inquiryPath = (suffix = "") =>
+  `/api/edu/projects/${encodeURIComponent(PROJECT_SLUG)}/board/post${suffix}`;
 const TIMEOUT_MS = 10_000;
 
 export type HomepageResult<T> = {

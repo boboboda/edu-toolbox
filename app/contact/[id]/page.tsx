@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { homepageFetch } from "@/lib/homepage";
+import { homepageFetch, inquiryPath } from "@/lib/homepage";
 import { formatDate, type InquiryPost } from "@/lib/board";
 import styles from "../../request/request.module.css";
 
@@ -19,7 +19,7 @@ export default async function ContactDetailPage({
   const { id } = await params;
 
   const result = await homepageFetch<{ post?: InquiryPost }>(
-    `/api/edu/inquiries/${encodeURIComponent(id)}`,
+    inquiryPath(`/${encodeURIComponent(id)}`),
   );
 
   if (result.status === 404) notFound();

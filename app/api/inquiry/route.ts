@@ -1,7 +1,7 @@
 // 브라우저 -> edu 서버: 문의 글 작성. 홈페이지의 프로젝트 문의 게시판에 저장된다.
 import { NextResponse } from "next/server";
 
-import { getClientIp, homepageFetch } from "@/lib/homepage";
+import { getClientIp, homepageFetch, inquiryPath } from "@/lib/homepage";
 import { LIMITS } from "@/lib/board";
 
 const fail = (status: number, message: string) =>
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
   }
 
   const result = await homepageFetch<{ id?: string; message?: string }>(
-    "/api/edu/inquiries",
+    inquiryPath(),
     {
       method: "POST",
       clientIp: getClientIp(req.headers),
