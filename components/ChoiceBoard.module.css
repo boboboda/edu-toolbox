@@ -1,0 +1,23 @@
+.wrap { display: flex; flex-direction: column; align-items: center; gap: 22px; padding: 28px 0 8px; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; width: 100%; max-width: 760px; }
+.card {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+  padding: 28px 12px; background: var(--white); border: 3px solid var(--ink); border-radius: 32px;
+  box-shadow: 0 8px 0 var(--ink); cursor: pointer; font: inherit; color: var(--ink);
+  transition: transform 0.15s, opacity 0.15s;
+}
+.card:hover { transform: translateY(-3px); }
+.chosen { background: #fff3c4; transform: scale(1.04); }
+.dim { opacity: 0.35; }
+.pic { font-size: clamp(64px, 16vw, 130px); line-height: 1; }
+.label { font-family: var(--font-display); font-size: clamp(22px, 5vw, 36px); font-weight: 800; }
+.row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.panel { width: 100%; max-width: 760px; display: flex; flex-direction: column; gap: 16px; padding: 20px; background: var(--white); border: 2px solid var(--ink); border-radius: 24px; }
+.presets { display: flex; flex-wrap: wrap; gap: 8px; }
+.editors { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.editor { display: flex; flex-direction: column; gap: 8px; }
+.input { padding: 10px 12px; font: inherit; font-size: 18px; border: 2px solid var(--ink); border-radius: 12px; }
+.emojis { display: flex; flex-wrap: wrap; gap: 4px; }
+.emoji, .emojiOn { width: 40px; height: 40px; font-size: 22px; background: #fff; border: 2px solid transparent; border-radius: 10px; cursor: pointer; }
+.emojiOn { border-color: var(--ink); background: #fff3c4; }
+@media (max-width: 560px) { .editors { grid-template-columns: 1fr; } }

@@ -40,4 +40,12 @@ export const TOOLS: Tool[] = [
     d: "M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 17l-5.2 2.7 1-5.9L3.5 9.7l5.9-.8z",
     ready: true,
   },
+  {
+    href: "/tools/choice",
+    title: "선택판",
+    desc: "두 가지 중 하나를 골라요. 그림과 이름은 직접 바꿔요.",
+    tile: "tile-coral",
+    d: "M4 6h7v12H4zM13 6h7v12h-7zM7.5 12h0M16.5 12h0",
+    ready: true,
+  },
 ];
