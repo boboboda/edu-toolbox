@@ -22,16 +22,18 @@ export default function Header() {
           <span className="logo-text">특수교육 도구함</span>
         </Link>
 
-        <nav className="nav" aria-label="주요 메뉴">
-          <Link href="/tools">도구함</Link>
-          <Link href="/materials">자료실</Link>
-          <Link href="/sites">사이트</Link>
-          <Link href="/apps">앱</Link>
-          <Link href="/about">소개</Link>
+        <div className="header-right">
+          <nav className="nav" aria-label="주요 메뉴">
+            <Link href="/tools">도구함</Link>
+            <Link href="/materials">자료실</Link>
+            <Link href="/sites">사이트</Link>
+            <Link href="/apps">앱</Link>
+            <Link href="/about">소개</Link>
+          </nav>
           <Link href="/request" className="nav-cta">
             요청하기
           </Link>
-        </nav>
+        </div>
       </div>
     </header>
   );
