@@ -346,3 +346,8 @@
   font-size: 0.9rem;
   line-height: 1.5;
 }
+
+.days { display: flex; gap: 6px; width: 100%; max-width: 760px; }
+.dayBtn { position: relative; flex: 1; padding: 12px 0; font: inherit; font-size: 1.1rem; font-weight: 800; color: var(--ink); background: var(--white); border: 3px solid var(--ink); border-radius: 16px; cursor: pointer; }
+.dayOn { background: var(--ink); color: var(--white); }
+.todayDot { position: absolute; top: -9px; left: 50%; transform: translateX(-50%); padding: 1px 8px; font-size: 0.7rem; font-weight: 800; color: var(--ink); background: #ffd84d; border: 2px solid var(--ink); border-radius: 999px; white-space: nowrap; }
