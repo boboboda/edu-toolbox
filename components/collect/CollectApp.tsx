@@ -30,6 +30,19 @@ async function fetchBuf(name: string) {
   return res.arrayBuffer();
 }
 
+function SecurityNote() {
+  return (
+    <div className={`${styles.notice} ${styles.ok}`} role="note">
+      <strong>🔒 학생 정보는 서버에 저장되지 않아요</strong>
+      <ul style={{ margin: "6px 0 0", paddingLeft: "1.2em" }}>
+        <li>올린 엑셀 파일은 서버로 전송되지 않아요. 이 브라우저 안에서만 읽고 계산해요.</li>
+        <li>학교에서 받은 파일과 계산 결과는 어디에도 저장하지 않아요. 새로고침하거나 창을 닫으면 사라져요.</li>
+        <li>이 기기에는 양식과 학교 목록 설정만 저장돼요. 공용 컴퓨터에서는 다 쓰고 나서 수합 설정을 지워 주세요.</li>
+      </ul>
+    </div>
+  );
+}
+
 export default function CollectApp() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loaded, setLoaded] = useState(false);
@@ -149,6 +162,7 @@ export default function CollectApp() {
           </div>
           {err && <div className={`${styles.notice} ${styles.err}`}>{err}</div>}
         </div>
+        <SecurityNote />
         {projects.length > 0 && (
           <div className={styles.projects}>
             {projects.map((p) => (
@@ -194,6 +208,7 @@ export default function CollectApp() {
           </button>
         ))}
       </div>
+      {step === 3 && <SecurityNote />}
       {step === 0 && <StepForm project={cur} update={update} />}
       {step === 1 && <StepSchools project={cur} update={update} />}
       {step === 2 && <StepOutput project={cur} update={update} />}
