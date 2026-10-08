@@ -100,15 +100,15 @@ export default function StepForm({ project, update }: Props) {
 
   return (
     <div className={styles.panel}>
-      <h2>1. 수합 양식 등록</h2>
+      <h2>1. 학교용 양식 등록</h2>
       <p className={styles.help}>
-        학교에 보낸 <b>수합 양식</b> 엑셀을 올리고, 숫자를 받아 올 칸을 눌러 고르세요. 학교마다 칸의
+        학교에 나눠 준 <b>학교용 양식</b> 엑셀을 올리고, 숫자를 받아 올 칸을 눌러 고르세요. 학교마다 칸의
         위치가 달라도 괜찮아요. 칸의 <b>이름</b>(행 이름·열 이름)으로 찾아요. 파일은 이 기기 안에서만
         읽고 어디에도 보내지 않아요.
       </p>
       <div className={styles.row}>
         <label className={`btn btn-primary btn-small ${styles.fileBtn}`}>
-          {project.formName ? "다른 양식 올리기" : "수합 양식 올리기 (.xlsx)"}
+          {project.formName ? "다른 양식 올리기" : "학교용 양식 올리기 (.xlsx)"}
           <input type="file" accept=".xlsx" onChange={(e) => { onFile(e.target.files?.[0]); e.target.value = ""; }} />
         </label>
         {project.formName && <span className={styles.meta}>{project.formName}</span>}

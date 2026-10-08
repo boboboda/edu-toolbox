@@ -37,7 +37,7 @@ export default function StepOutput({ project, update }: Props) {
         setWb(w);
         setSheet((s) => s || w.worksheets[0]?.name || "");
       })
-      .catch(() => alive && setMsg("저장된 제출 양식을 열 수 없어요. 다시 올려 주세요."));
+      .catch(() => alive && setMsg("저장된 교육청용 양식을 열 수 없어요. 다시 올려 주세요."));
     return () => {
       alive = false;
     };
@@ -126,17 +126,17 @@ export default function StepOutput({ project, update }: Props) {
 
   return (
     <div className={styles.panel}>
-      <h2>3. 제출 양식 등록</h2>
+      <h2>3. 교육청용 양식 등록</h2>
       <p className={styles.help}>
-        학교에서 받은 값을 모아 <b>제출할 엑셀 양식</b>을 올리세요. 값을 채울 칸을 누르고 무엇을 넣을지 고르면,
+        학교에서 받은 값을 모아 <b>교육청에 제출할 엑셀 양식(교육청용)</b>을 올리세요. 값을 채울 칸을 누르고 무엇을 넣을지 고르면,
         수합이 끝났을 때 그 칸에 자동으로 채워 줘요. 합계 같은 <b>수식은 그대로</b> 유지돼요.
       </p>
       {project.items.length === 0 && (
-        <div className={styles.notice}>먼저 1단계에서 수합 양식의 항목을 골라야 항목 합계를 연결할 수 있어요.</div>
+        <div className={styles.notice}>먼저 1단계에서 학교용 양식의 항목을 골라야 항목 합계를 연결할 수 있어요.</div>
       )}
       <div className={styles.row}>
         <label className={`btn btn-primary btn-small ${styles.fileBtn}`}>
-          {project.templateName ? "다른 양식 올리기" : "제출 양식 올리기 (.xlsx)"}
+          {project.templateName ? "다른 양식 올리기" : "교육청용 양식 올리기 (.xlsx)"}
           <input type="file" accept=".xlsx" onChange={(e) => { onFile(e.target.files?.[0]); e.target.value = ""; }} />
         </label>
         {project.templateName && <span className={styles.meta}>{project.templateName}</span>}

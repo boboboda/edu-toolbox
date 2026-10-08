@@ -111,10 +111,10 @@ export default function StepRun({ project, update, files, setFiles }: Props) {
 
   const makeResult = async () => {
     setMsg("");
-    if (!project.templateB64) { setMsg("3단계에서 제출 양식을 먼저 올려 주세요."); return; }
+    if (!project.templateB64) { setMsg("3단계에서 교육청용 양식을 먼저 올려 주세요."); return; }
     if (!project.outputs.length) { setMsg("3단계에서 값을 채울 칸을 먼저 연결해 주세요."); return; }
     const { blob, skipped } = await fillTemplate(b64ToBuf(project.templateB64), project.outputs, an, project, date);
-    download(blob, "제출용_결과.xlsx");
+    download(blob, "교육청용_결과.xlsx");
     if (skipped.length) setMsg(`채우지 못한 칸: ${skipped.join(", ")}`);
   };
 
@@ -125,7 +125,7 @@ export default function StepRun({ project, update, files, setFiles }: Props) {
       <h2>4. 수합하기</h2>
       {!ready && (
         <div className={styles.notice}>
-          {project.items.length === 0 ? "1단계에서 수합 양식의 항목을 먼저 골라 주세요. " : ""}
+          {project.items.length === 0 ? "1단계에서 학교용 양식의 항목을 먼저 골라 주세요. " : ""}
           {project.schools.length === 0 ? "2단계에서 학교 목록을 먼저 넣어 주세요." : ""}
         </div>
       )}
@@ -168,7 +168,7 @@ export default function StepRun({ project, update, files, setFiles }: Props) {
               <input type="date" className={styles.input} value={date} onChange={(e) => setDate(e.target.value)} />
             </label>
             <button type="button" className="btn btn-primary btn-small" onClick={makeResult} disabled={busy || !ready}>
-              제출용 엑셀 받기
+              교육청용 엑셀 받기
             </button>
             <button type="button" className="btn btn-outline btn-small" onClick={async () => download(await buildReport(an), "수합현황_점검.xlsx")} disabled={busy || !ready}>
               수합 현황표 받기

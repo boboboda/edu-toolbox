@@ -10,7 +10,7 @@ import StepRun, { type PickedFile } from "./StepRun";
 import StepSchools from "./StepSchools";
 import styles from "./collect.module.css";
 
-const STEPS = ["수합 양식", "학교 목록", "제출 양식", "수합하기"];
+const STEPS = ["학교용 양식", "학교 목록", "교육청용 양식", "수합하기"];
 
 const DEMO_FILES = [
   "가나초등학교", "노을통합학교", "다라초등학교", "마바초등학교", "무지개통합학교", "산들중학교",
@@ -94,8 +94,8 @@ export default function CollectApp() {
     setBusy(true);
     setErr("");
     try {
-      const formBuf = await fetchBuf("수합양식_예시.xlsx");
-      const tplBuf = await fetchBuf("제출양식_예시.xlsx");
+      const formBuf = await fetchBuf("학교용_양식_예시.xlsx");
+      const tplBuf = await fetchBuf("교육청용_양식_예시.xlsx");
       const formWb = await readWorkbook(formBuf);
       const ws = formWb.worksheets[0];
       const clicks: [number, number, "table" | "pair"][] = [[3, 2, "pair"], [4, 2, "pair"], [5, 2, "pair"], [15, 2, "pair"]];
@@ -107,9 +107,9 @@ export default function CollectApp() {
       const outputs = suggestOutputs(tplWb.worksheets[0], items);
       const p: Project = {
         ...emptyProject("예시: 특수교육 현황 수합"),
-        formName: "수합양식_예시.xlsx",
+        formName: "학교용_양식_예시.xlsx",
         formB64: bufToB64(formBuf),
-        templateName: "제출양식_예시.xlsx",
+        templateName: "교육청용_양식_예시.xlsx",
         templateB64: bufToB64(tplBuf),
         items,
         outputs,

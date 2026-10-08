@@ -76,7 +76,7 @@ export const TOOLS: Tool[] = [
     href: "/tools/collect",
     category: "work",
     title: "엑셀 파일 취합",
-    desc: "여러 곳에서 받은 엑셀 파일을 모아 계산하고, 제출용 양식에 채워줘요.",
+    desc: "여러 곳에서 받은 엑셀 파일을 모아 계산하고, 교육청용 양식에 채워줘요.",
     tile: "tile-mint",
     d: "M4 5h16v14H4zM4 10h16M4 15h16M10 5v14",
     ready: true,
