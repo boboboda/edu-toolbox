@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+const LOGO = `<svg width="44" height="44" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#2559d6"/><path d="M24 22v-3a3 3 0 013-3h10a3 3 0 013 3v3" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/><rect x="12" y="22" width="40" height="28" rx="6" fill="#ffd84d" stroke="#14213d" stroke-width="3"/><path d="M12 35h40" stroke="#14213d" stroke-width="3"/><rect x="28" y="31" width="8" height="8" rx="2" fill="#fff" stroke="#14213d" stroke-width="3"/></svg>`;
+
 export default function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -27,20 +29,7 @@ export default function Header() {
     <header className="site-header">
       <div className="container header-inner">
         <Link href="/" className="logo" aria-label="특수교육 도구함 홈">
-          <span className="logo-mark" aria-hidden="true">
-            <svg
-              width="26"
-              height="26"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#ffffff"
-              strokeWidth="2.4"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M5 12.5l4.5 4.5L19 7.5" />
-            </svg>
-          </span>
+          <span className="logo-mark" aria-hidden="true" dangerouslySetInnerHTML={{ __html: LOGO }} />
           <span className="logo-text">특수교육 도구함</span>
         </Link>
 
