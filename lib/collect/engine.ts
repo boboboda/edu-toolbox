@@ -166,7 +166,7 @@ export function deriveItem(
   ws: Worksheet,
   r: number,
   c: number,
-  mode: "table" | "pair",
+  mode: "table" | "pair" | "auto",
 ): { item?: Item; error?: string } {
   // 병합 칸이면 왼쪽 위 칸 기준
   const rg = mergeRanges(ws).find((g) => r >= g.r1 && r <= g.r2 && c >= g.c1 && c <= g.c2);
@@ -175,6 +175,10 @@ export function deriveItem(
     c = rg.c1;
   }
   const addr = addrOf(r, c);
+  if (mode === "auto") {
+    // 왼쪽에 행 이름, 위쪽에 열 이름이 모두 있으면 표 안의 칸, 아니면 이름 옆 칸
+    mode = nearestLeft(ws, r, c) && nearestUp(ws, r, c, true) ? "table" : "pair";
+  }
   if (mode === "pair") {
     const label = nearestLeft(ws, r, c);
     if (!label) return { error: "왼쪽에 이름 칸이 없어요. 이름 바로 옆 칸을 눌러 주세요." };
@@ -198,6 +202,35 @@ export function deriveItem(
       addr,
     },
   };
+}
+
+/** 학교용 양식에서 숫자를 적는 빈칸을 자동으로 찾기 */
+export function suggestItems(ws: Worksheet): Item[] {
+  const merges = mergeRanges(ws);
+  const covered = (r: number, c: number) =>
+    merges.some((g) => r >= g.r1 && r <= g.r2 && c >= g.c1 && c <= g.c2 && !(r === g.r1 && c === g.c1));
+  const out: Item[] = [];
+  const rows = Math.min(ws.rowCount, 200);
+  const cols = Math.min(ws.columnCount, 40);
+  for (let r = 1; r <= rows; r++) {
+    for (let c = 2; c <= cols; c++) {
+      if (covered(r, c)) continue;
+      const raw: any = ws.getCell(r, c).value;
+      if (!(raw === null || raw === undefined || raw === "" || typeof raw === "number")) continue;
+      const left = nearestLeft(ws, r, c);
+      if (!left) continue;
+      const isTable = !!nearestUp(ws, r, c, true);
+      // 이름 옆 칸은 이름 바로 오른쪽 칸만
+      if (!isTable && !text(ws.getCell(r, c - 1)).trim()) continue;
+      const d = deriveItem(ws, r, c, "auto");
+      if (!d.item) continue;
+      const lab = norm(d.item.label ?? "");
+      if (d.item.kind === "pair" && /학교명|기관명/.test(lab)) d.item.role = "school";
+      else if (d.item.kind === "pair" && /학교급/.test(lab)) d.item.role = "level";
+      out.push(d.item);
+    }
+  }
+  return out;
 }
 
 // ---------- 학교 파일에서 항목 찾기 ----------

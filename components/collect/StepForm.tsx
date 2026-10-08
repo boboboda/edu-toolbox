@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { deriveItem, readWorkbook, toGrid } from "@/lib/collect/engine";
+import { deriveItem, readWorkbook, suggestItems, toGrid } from "@/lib/collect/engine";
 import { b64ToBuf, bufToB64 } from "@/lib/collect/storage";
 import type { Item, Project } from "@/lib/collect/types";
 import type { Workbook } from "exceljs";
@@ -22,7 +22,6 @@ const ROLE_LABEL: Record<Item["role"], string> = {
 export default function StepForm({ project, update }: Props) {
   const [wb, setWb] = useState<Workbook | null>(null);
   const [sheet, setSheet] = useState("");
-  const [mode, setMode] = useState<"table" | "pair">("table");
   const [msg, setMsg] = useState("");
 
   // 저장된 양식 불러오기
@@ -57,7 +56,7 @@ export default function StepForm({ project, update }: Props) {
       const w = await readWorkbook(buf);
       setWb(w);
       setSheet(w.worksheets[0]?.name ?? "");
-      update({ formName: f.name, formB64: bufToB64(buf), items: [], outputs: [] });
+      update({ formName: f.name, formB64: bufToB64(buf), items: suggestItems(w.worksheets[0]), outputs: [] });
     } catch {
       setMsg("이 파일을 열 수 없어요. 암호가 걸려 있거나 손상된 파일일 수 있어요.");
     }
@@ -66,7 +65,7 @@ export default function StepForm({ project, update }: Props) {
   const onPick = (r: number, c: number) => {
     if (!ws) return;
     setMsg("");
-    const d = deriveItem(ws, r, c, mode);
+    const d = deriveItem(ws, r, c, "auto");
     if (!d.item) {
       setMsg(d.error ?? "");
       return;
@@ -100,11 +99,10 @@ export default function StepForm({ project, update }: Props) {
 
   return (
     <div className={styles.panel}>
-      <h2>1. 학교용 양식 등록</h2>
+      <h2>1. 학교에 나눠 줄 양식 올리기</h2>
       <p className={styles.help}>
-        학교에 나눠 준 <b>학교용 양식</b> 엑셀을 올리고, 숫자를 받아 올 칸을 눌러 고르세요. 학교마다 칸의
-        위치가 달라도 괜찮아요. 칸의 <b>이름</b>(행 이름·열 이름)으로 찾아요. 파일은 이 기기 안에서만
-        읽고 어디에도 보내지 않아요.
+        학교에서 숫자를 적는 엑셀 파일(학교용 양식)을 올려 주세요. 올리면 <b>숫자를 적는 빈칸을 자동으로 찾아서
+        초록색으로 표시</b>해요. 파일은 이 기기 안에서만 읽고 어디에도 보내지 않아요.
       </p>
       <div className={styles.row}>
         <label className={`btn btn-primary btn-small ${styles.fileBtn}`}>
@@ -124,19 +122,14 @@ export default function StepForm({ project, update }: Props) {
 
       {grid && (
         <>
-          <div className={styles.row} role="radiogroup" aria-label="고르는 방식">
-            <button type="button" className={`btn btn-small ${mode === "table" ? "btn-dark" : "btn-outline"} ${styles.small}`} onClick={() => setMode("table")} aria-pressed={mode === "table"}>
-              표 안의 칸 (행 이름 + 열 이름)
-            </button>
-            <button type="button" className={`btn btn-small ${mode === "pair" ? "btn-dark" : "btn-outline"} ${styles.small}`} onClick={() => setMode("pair")} aria-pressed={mode === "pair"}>
-              이름 옆 칸 (예: 학교명, 학급 수)
+          <p className={styles.help}>
+            <b>초록색 칸이 맞는지 확인하세요.</b> 빠진 칸은 눌러서 넣고, 잘못 잡힌 칸은 다시 눌러서 빼세요.
+          </p>
+          <div className={styles.row}>
+            <button type="button" className="btn btn-outline btn-small" onClick={() => ws && update({ items: suggestItems(ws) })}>
+              처음부터 다시 자동으로 찾기
             </button>
           </div>
-          <p className={styles.help}>
-            {mode === "table"
-              ? "숫자가 들어가는 표의 칸을 누르세요. 왼쪽의 행 이름과 위쪽의 열 이름을 함께 기억해요."
-              : "이름이 적힌 칸의 바로 오른쪽 칸을 누르세요. 왼쪽의 이름을 기억해요. 다시 누르면 취소돼요."}
-          </p>
           <SheetGrid grid={grid} marks={marks} onPick={onPick} />
         </>
       )}
