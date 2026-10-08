@@ -21,3 +21,48 @@
 .soon:hover {
   transform: none;
 }
+/* 교육용 / 업무용 구분 */
+.switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.switchLink {
+  padding: 8px 20px;
+  border: 3px solid var(--ink, #222);
+  border-radius: 999px;
+  font-weight: 700;
+  transition: transform 0.15s ease;
+}
+
+.switchLink:hover {
+  transform: translateY(-2px);
+}
+
+.group {
+  scroll-margin-top: 90px;
+  margin-bottom: 48px;
+}
+
+.groupTitle {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.8rem;
+  line-height: 1.3;
+}
+
+.groupDesc {
+  margin-bottom: 16px;
+  color: var(--text-sub);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .switchLink {
+    transition: none;
+  }
+  .switchLink:hover {
+    transform: none;
+  }
+}

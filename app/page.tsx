@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Icon from "@/components/Icon";
 import HeroTimer from "@/components/HeroTimer";
-import { TOOLS } from "@/lib/tools";
+import { toolsOf } from "@/lib/tools";
 
 const CHECK = "M5 12.5l4.5 4.5L19 7.5";
 const DOWNLOAD = "M12 4v11M7.5 11l4.5 4.5 4.5-4.5M5 20h14";
@@ -122,12 +122,12 @@ export default function Home() {
             <p>누르면 바로 열려요. 설정은 이 기기 안에만 저장돼요.</p>
           </div>
           <Link href="/tools" className="section-link">
-            도구 전체 보기
+            교육용·업무용 도구 전체 보기
           </Link>
         </div>
 
         <div className="card-row">
-          {TOOLS.map((tool) => (
+          {toolsOf("edu").filter((tool) => tool.ready).map((tool) => (
             <Link key={tool.href} href={tool.href} className="tool-card">
               <span className={`tile ${tool.tile}`}>
                 <Icon d={tool.d} />
