@@ -10,5 +10,3 @@ export type Listing = {
 // 자료실: 인쇄해서 쓰는 자료 (PDF 등). 예) { title: "...", desc: "...", href: "/materials/xxx.pdf" }
 export const MATERIALS: Listing[] = [];
 
-// 앱: 직접 만든 앱. 예) { title: "...", desc: "...", href: "https://play.google.com/..." }
-export const APPS: Listing[] = [];
