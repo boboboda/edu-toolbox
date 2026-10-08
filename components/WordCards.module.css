@@ -1,0 +1,242 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  padding: 28px 0 8px;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.tab {
+  min-height: 48px;
+  padding: 0 18px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tabOn {
+  background: var(--mint);
+  box-shadow: 0 4px 0 var(--ink);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 520px;
+  min-height: 360px;
+  padding: 24px;
+  background: var(--white);
+  border: 3px solid var(--ink);
+  border-radius: 32px;
+  box-shadow: 0 8px 0 var(--ink);
+  color: var(--ink);
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.icon {
+  font-size: clamp(7rem, 30vw, 11rem);
+  line-height: 1.1;
+}
+
+.word {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 12vw, 4.6rem);
+  line-height: 1.2;
+}
+
+.hidden {
+  color: var(--text-sub);
+}
+
+.count {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.big {
+  min-width: 150px;
+  min-height: 64px;
+  font-size: 1.25rem;
+}
+
+.empty {
+  width: 100%;
+  max-width: 520px;
+  padding: 32px 24px;
+  background: var(--white);
+  border: 3px dashed var(--line-strong);
+  border-radius: 28px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 640px;
+  padding: 24px;
+  background: var(--white);
+  border: 2px solid var(--line-strong);
+  border-radius: 24px;
+}
+
+.panelTitle {
+  margin: 0;
+  font-weight: 700;
+  color: var(--text-sub);
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.input {
+  flex: 1;
+  min-width: 140px;
+  min-height: 48px;
+  padding: 0 14px;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: var(--white);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 1.05rem;
+}
+
+.iconInput {
+  flex: none;
+  width: 72px;
+  min-width: 0;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background: var(--bg);
+  font-weight: 700;
+}
+
+.remove {
+  border: none;
+  background: none;
+  color: var(--coral);
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.note {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-sub);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* 인쇄용 카드는 화면에서는 숨겨요 */
+.print {
+  display: none;
+}
+
+@media print {
+  /* 인쇄할 때는 카드 모음만 남겨요 */
+  :global(.site-header),
+  :global(.site-footer) {
+    display: none !important;
+  }
+
+  .wrap > *:not(.print) {
+    display: none !important;
+  }
+
+  .wrap {
+    display: block;
+    padding: 0;
+  }
+
+  .print {
+    display: block;
+  }
+
+  .printTitle {
+    margin: 0 0 8mm;
+    font-size: 18pt;
+  }
+
+  .printGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6mm;
+  }
+
+  .printCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4mm;
+    height: 60mm;
+    border: 1.2mm dashed #000;
+    border-radius: 6mm;
+    break-inside: avoid;
+  }
+
+  .printIcon {
+    font-size: 40pt;
+    line-height: 1;
+  }
+
+  .printWord {
+    font-size: 28pt;
+    font-weight: 700;
+  }
+}

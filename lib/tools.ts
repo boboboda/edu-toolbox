@@ -30,7 +30,7 @@ export const TOOLS: Tool[] = [
     desc: "그림과 낱말을 넘기며 익혀요. 인쇄용 카드도 만들 수 있어요.",
     tile: "tile-mint",
     d: "M6 6h7a2.5 2.5 0 0 1 2.5 2.5v10A2.5 2.5 0 0 1 13 21H6a2.5 2.5 0 0 1-2.5-2.5v-10A2.5 2.5 0 0 1 6 6zM8.5 3.5h9a3 3 0 0 1 3 3V16M7 12h5M7 16h3",
-    ready: false,
+    ready: true,
   },
   {
     href: "/tools/tokens",
