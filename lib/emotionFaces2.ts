@@ -46,14 +46,58 @@ export const FACES2: Face2[] = [
     mouth: ln("M39 66 Q50 75 61 66", 3), blush: 0.4 },
 ];
 
-export function faceSvg2(f: Face2, size?: number) {
+export type FaceStyle = "boy" | "girl" | "cat";
+
+const HEAD = "M50 94 C24 94 16 72 16 50 C16 26 30 12 50 12 C70 12 84 26 84 50 C84 72 76 94 50 94z";
+const BANGS = (c: string) =>
+  `<path d="M14 52 C8 20 28 4 52 6 C76 6 94 22 86 52 C84 40 78 30 70 26 C58 30 36 30 28 24 C20 30 16 40 14 52z" fill="${c}" stroke="${L}" stroke-width="2.6" stroke-linejoin="round"/>`;
+
+function base(style: FaceStyle) {
+  if (style === "boy")
+    return {
+      back: `<ellipse cx="12" cy="56" rx="6" ry="9" fill="#f6c39b" stroke="${L}" stroke-width="2.4"/><ellipse cx="88" cy="56" rx="6" ry="9" fill="#f6c39b" stroke="${L}" stroke-width="2.4"/>`,
+      head: `<path d="${HEAD}" fill="#ffd9b8" stroke="${L}" stroke-width="2.8"/>`,
+      front: BANGS("#4a3228"),
+    };
+  if (style === "girl")
+    return {
+      // 머리카락이 얼굴 뒤로 길게 내려오고, 양쪽에 묶은 머리
+      back:
+        `<path d="M10 50 C6 20 28 2 50 2 C72 2 94 20 90 50 L94 96 Q86 100 78 92 L22 92 Q14 100 6 96z" fill="#2f2a3a" stroke="${L}" stroke-width="2.6" stroke-linejoin="round"/>`,
+      head: `<path d="${HEAD}" fill="#ffd9b8" stroke="${L}" stroke-width="2.8"/>`,
+      front:
+        `<path d="M16 50 C12 22 30 8 50 8 C70 8 88 22 84 50 C80 36 70 24 50 24 C30 24 20 36 16 50z" fill="#2f2a3a" stroke="${L}" stroke-width="2.6" stroke-linejoin="round"/>` +
+        `<path d="M62 12 q10 -2 14 6" fill="none" stroke="#ff7a9a" stroke-width="5" stroke-linecap="round"/>`,
+    };
+  // cat
+  return {
+    back:
+      `<path d="M16 38 L14 8 L40 20z" fill="#ffb36b" stroke="${L}" stroke-width="2.8" stroke-linejoin="round"/><path d="M84 38 L86 8 L60 20z" fill="#ffb36b" stroke="${L}" stroke-width="2.8" stroke-linejoin="round"/>` +
+      `<path d="M20 30 L19 15 L32 22z" fill="#ffc9d1"/><path d="M80 30 L81 15 L68 22z" fill="#ffc9d1"/>`,
+    head: `<path d="${HEAD}" fill="#ffc77f" stroke="${L}" stroke-width="2.8"/>`,
+    front:
+      `<path d="M50 14 v10 M40 16 l2 8 M60 16 l-2 8" stroke="#d98a3d" stroke-width="3" stroke-linecap="round"/>` +
+      `<path d="M26 76 Q50 90 74 76 Q74 90 50 94 Q26 90 26 76z" fill="#fff3df" opacity="0.9"/>`,
+  };
+}
+
+export function faceSvg2(f: Face2, size?: number, style: FaceStyle = "boy") {
   const dim = size ? ` width="${size}" height="${size}"` : "";
-  const nose = ln("M48 58 Q50 61 52.5 58", 1.8, "#c98d6b");
-  const cheeks = f.blush ? `<ellipse cx="26" cy="62" rx="7" ry="4.5" fill="#ff7f8f" opacity="${f.blush * 0.6}"/><ellipse cx="74" cy="62" rx="7" ry="4.5" fill="#ff7f8f" opacity="${f.blush * 0.6}"/>` : "";
-  const brows = ln(f.brows[0], 3.4) + ln(f.brows[1], 3.4);
-  return `<svg viewBox="0 0 100 100"${dim} role="img" aria-label="${f.id} 얼굴">` +
-    `<ellipse cx="12" cy="56" rx="6" ry="9" fill="#f6c39b" stroke="${L}" stroke-width="2.4"/><ellipse cx="88" cy="56" rx="6" ry="9" fill="#f6c39b" stroke="${L}" stroke-width="2.4"/>` +
-    `<path d="M50 94 C24 94 16 72 16 50 C16 26 30 12 50 12 C70 12 84 26 84 50 C84 72 76 94 50 94z" fill="#ffd9b8" stroke="${L}" stroke-width="2.8"/>` +
-    `<path d="M14 52 C8 20 28 4 52 6 C76 6 94 22 86 52 C84 40 78 30 70 26 C58 30 36 30 28 24 C20 30 16 40 14 52z" fill="#4a3228" stroke="${L}" stroke-width="2.6" stroke-linejoin="round"/>` +
-    cheeks + brows + f.eyes + nose + f.mouth + (f.extra ?? "") + `</svg>`;
+  const nose =
+    style === "cat"
+      ? `<path d="M46 58 h8 l-4 5z" fill="#e87a8a" stroke="${L}" stroke-width="1.6" stroke-linejoin="round"/>`
+      : ln("M48 58 Q50 61 52.5 58", 1.8, "#c98d6b");
+  const whisk =
+    style === "cat"
+      ? ln("M10 60 L26 62 M10 70 L26 67 M90 60 L74 62 M90 70 L74 67", 1.8)
+      : "";
+  const cheeks = f.blush
+    ? `<ellipse cx="26" cy="62" rx="7" ry="4.5" fill="#ff7f8f" opacity="${f.blush * 0.6}"/><ellipse cx="74" cy="62" rx="7" ry="4.5" fill="#ff7f8f" opacity="${f.blush * 0.6}"/>`
+    : "";
+  const brows = style === "cat" ? "" : ln(f.brows[0], 3.4) + ln(f.brows[1], 3.4);
+  const b = base(style);
+  return (
+    `<svg viewBox="0 0 100 100"${dim} role="img" aria-label="${f.id} 얼굴">` +
+    b.back + b.head + b.front + cheeks + brows + f.eyes + nose + f.mouth + whisk + (f.extra ?? "") + `</svg>`
+  );
 }

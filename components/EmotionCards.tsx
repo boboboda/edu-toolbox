@@ -3,9 +3,22 @@
 import { useState } from "react";
 import styles from "./EmotionCards.module.css";
 import { EMOTIONS, faceSvg } from "@/lib/emotions";
+import { FACES2, faceSvg2, type FaceStyle } from "@/lib/emotionFaces2";
 
-function Face({ i }: { i: number }) {
-  return <span dangerouslySetInnerHTML={{ __html: faceSvg(EMOTIONS[i]) }} />;
+type SetId = "round" | FaceStyle;
+const SETS: { id: SetId; name: string }[] = [
+  { id: "round", name: "동그라미" },
+  { id: "boy", name: "남자 어린이" },
+  { id: "girl", name: "여자 어린이" },
+  { id: "cat", name: "고양이" },
+];
+
+function render(set: SetId, i: number) {
+  return set === "round" ? faceSvg(EMOTIONS[i]) : faceSvg2(FACES2[i], undefined, set);
+}
+
+function Face({ i, set }: { i: number; set: SetId }) {
+  return <span dangerouslySetInnerHTML={{ __html: render(set, i) }} />;
 }
 
 function speak(text: string) {
@@ -22,6 +35,7 @@ function speak(text: string) {
 
 export default function EmotionCards() {
   const [sel, setSel] = useState<number | null>(null);
+  const [set, setSet] = useState<SetId>("round");
   const cur = sel === null ? null : EMOTIONS[sel];
 
   return (
@@ -29,13 +43,27 @@ export default function EmotionCards() {
       <div className={styles.big} aria-live="polite">
         {cur ? (
           <>
-            <span className={styles.bigPic}><Face i={sel as number} /></span>
+            <span className={styles.bigPic}><Face i={sel as number} set={set} /></span>
             <span className={styles.bigName}>{cur.name}</span>
             <span className={styles.tip}>{cur.tip}</span>
           </>
         ) : (
           <span className={styles.ask}>지금 기분은 어때요?</span>
         )}
+      </div>
+
+      <div className={styles.sets} role="group" aria-label="그림 종류">
+        {SETS.map((x) => (
+          <button
+            key={x.id}
+            type="button"
+            className={`${styles.setBtn} ${set === x.id ? styles.setOn : ""}`}
+            aria-pressed={set === x.id}
+            onClick={() => setSet(x.id)}
+          >
+            {x.name}
+          </button>
+        ))}
       </div>
 
       <div className={styles.grid}>
@@ -50,7 +78,7 @@ export default function EmotionCards() {
               speak(e.say);
             }}
           >
-            <span className={styles.pic}><Face i={i} /></span>
+            <span className={styles.pic}><Face i={i} set={set} /></span>
             <span>{e.name}</span>
           </button>
         ))}

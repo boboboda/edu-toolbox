@@ -11,3 +11,6 @@
 .on { background: #fff3c4; }
 .pic { display: block; width: clamp(56px, 13vw, 84px); line-height: 0; }
 @media (max-width: 560px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+.sets { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.setBtn { padding: 10px 16px; font: inherit; font-weight: 700; color: var(--ink); background: var(--white); border: 2px solid var(--ink); border-radius: 999px; cursor: pointer; }
+.setOn { background: var(--ink); color: var(--white); }
