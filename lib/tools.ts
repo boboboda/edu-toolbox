@@ -22,7 +22,7 @@ export const TOOLS: Tool[] = [
     desc: "하루 순서를 카드로 보여줘요. 끝난 활동은 체크해요.",
     tile: "tile-blue",
     d: "M7 5h10a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3zM4 10h16M9 3v4M15 3v4M8 14h3",
-    ready: false,
+    ready: true,
   },
   {
     href: "/tools/wordcards",
