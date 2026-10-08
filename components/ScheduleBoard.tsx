@@ -500,7 +500,7 @@ export default function ScheduleBoard() {
               type="time"
               step={300}
               className={styles.input}
-              style={{ flex: "none", width: 140 }}
+              style={{ flex: "none", width: 210 }}
               value={settings.start}
               onChange={(e) => e.target.value && setSettings((st) => ({ ...st, start: e.target.value }))}
             />
@@ -570,7 +570,7 @@ export default function ScheduleBoard() {
           <div className={styles.setRow}>
             <select
               className={styles.input}
-              style={{ flex: "none", width: 110 }}
+              style={{ flex: "none", width: 150 }}
               value={periods}
               aria-label="수업 수"
               onChange={(e) => setSettings((st) => ({ ...st, periods: Number(e.target.value) }))}
@@ -581,7 +581,7 @@ export default function ScheduleBoard() {
             </select>
             <select
               className={styles.input}
-              style={{ flex: "none", width: 160 }}
+              style={{ flex: "none", width: 210 }}
               value={lunchAfter}
               aria-label="점심 시간 위치"
               onChange={(e) => setSettings((st) => ({ ...st, lunchAfter: Number(e.target.value) }))}
@@ -599,7 +599,7 @@ export default function ScheduleBoard() {
           <div className={styles.setRow}>
             <select
               className={styles.input}
-              style={{ flex: "none", width: 110 }}
+              style={{ flex: "none", width: 150 }}
               value={copyFrom}
               aria-label="복사해 올 요일"
               onChange={(e) => setCopyFrom(e.target.value as Day)}
