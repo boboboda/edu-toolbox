@@ -91,3 +91,32 @@
 .tips li {
   margin-bottom: 4px;
 }
+/* 폰처럼 좁은 화면: 제목이 한 줄을 다 쓰도록 위아래로 나눠요 */
+@media (max-width: 560px) {
+  .barInner {
+    flex-wrap: wrap;
+  }
+
+  .title {
+    order: 3;
+    flex: 1 1 100%;
+    font-size: 1.4rem;
+  }
+}
+
+/* 인쇄할 때는 도구 화면의 윗줄과 사용 팁을 빼요 */
+@media print {
+  .bar,
+  .tips {
+    display: none !important;
+  }
+
+  .shell {
+    min-height: 0;
+    background: #fff;
+  }
+
+  .stage {
+    padding: 0;
+  }
+}

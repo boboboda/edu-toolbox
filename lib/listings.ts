@@ -33,5 +33,35 @@ export const MATERIALS: Listing[] = [
     href: "/materials/class-rules.pdf",
     tags: ["PDF", "A4"],
   },
+  {
+    title: "감정 카드 인쇄판",
+    desc: "감정 얼굴 12개를 4가지 그림(동그라미, 남자·여자 어린이, 고양이)으로 담았어요. 오려서 코팅해 써요.",
+    href: "/materials/emotion-cards.pdf",
+    tags: ["PDF", "A4", "4쪽"],
+  },
+  {
+    title: "선 긋기·가위질 연습지",
+    desc: "가로선, 물결, 지그재그, 도형을 따라 긋고, 점선을 따라 가위로 잘라 보는 연습지예요.",
+    href: "/materials/line-scissor-practice.pdf",
+    tags: ["PDF", "A4", "2쪽"],
+  },
+  {
+    title: "생활 순서 카드",
+    desc: "손 씻기, 양치하기, 화장실 가기, 가방 싸기를 단계별 카드로 만들었어요. 그림 칸에 사진을 붙여 써요.",
+    href: "/materials/life-steps.pdf",
+    tags: ["PDF", "A4 가로", "2쪽"],
+  },
+  {
+    title: "사회적 이야기 빈 양식",
+    desc: "그림 칸과 글씨 줄이 6장 있어요. 상황 이야기를 직접 만들고, 문장 쓰는 방법 안내도 적혀 있어요.",
+    href: "/materials/social-story-blank.pdf",
+    tags: ["PDF", "A4"],
+  },
+  {
+    title: "월간 달력",
+    desc: "년·월과 날짜를 직접 적는 빈 달력이에요. 칸에 그림이나 스티커를 붙여 써요.",
+    href: "/materials/monthly-calendar.pdf",
+    tags: ["PDF", "A4 가로"],
+  },
 ];
 

@@ -1,0 +1,36 @@
+.wrap { display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 28px 0 8px; }
+.panel { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 760px; padding: 22px; background: var(--white); border: 3px solid var(--ink); border-radius: 24px; }
+.label { font-weight: 800; }
+.textarea { width: 100%; padding: 12px 14px; font: inherit; font-size: 1.15rem; border: 2px solid var(--ink); border-radius: 14px; resize: vertical; background: var(--bg); color: var(--ink); }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.chip { min-height: 44px; padding: 0 18px; font: inherit; font-weight: 700; color: var(--ink); background: var(--white); border: 2px solid var(--ink); border-radius: 999px; cursor: pointer; }
+.chipOn { background: var(--yellow); }
+.check { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; cursor: pointer; }
+.check input { width: 22px; height: 22px; }
+.warn { padding: 10px 14px; background: var(--yellow-soft); border: 2px solid var(--ink); border-radius: 12px; font-weight: 700; }
+.hint { font-size: 0.95rem; color: var(--text-sub); }
+
+.sheetWrap { width: 100%; max-width: 760px; }
+.sheet { --cols: 8; display: flex; flex-direction: column; gap: 6px; width: 100%; padding: 4% 4% 5%; background: #fff; border: 3px solid var(--ink); border-radius: 12px; box-shadow: 0 6px 0 var(--ink); color: #000; }
+.title { font-family: var(--font-display); font-size: clamp(1.2rem, 4vw, 1.8rem); text-align: center; margin-bottom: 2px; }
+.nameLine { display: flex; align-items: flex-end; gap: 8px; margin-bottom: 4px; font-weight: 800; }
+.blank { flex: 1; min-width: 0; border-bottom: 2px solid #000; height: 1.4em; }
+.empty { padding: 30px 0; text-align: center; color: var(--text-sub); }
+.line { display: grid; grid-template-columns: repeat(var(--cols), 1fr); }
+.cell { display: block; width: 100%; height: auto; aspect-ratio: 1; margin: 0 -1px -1px 0; }
+.box { fill: #fff; stroke: #000; stroke-width: 1.6; }
+.guide { fill: none; stroke: #9aa3b5; stroke-width: 1; stroke-dasharray: 3 3; }
+.solid, .dotted, .light { font-family: var(--font-display); font-size: 74px; }
+.solid { fill: #000; }
+.dotted { fill: none; stroke: #444; stroke-width: 1.4; stroke-dasharray: 2.5 3; }
+.light { fill: #c9ced9; }
+
+@media print {
+  @page { size: A4; margin: 10mm; }
+  :global(.site-header), :global(.site-footer) { display: none !important; }
+  .wrap > *:not(.sheetWrap) { display: none !important; }
+  .wrap { display: block; padding: 0; }
+  .sheetWrap { max-width: none; }
+  .sheet { border: 0; border-radius: 0; box-shadow: none; padding: 0; width: 190mm; }
+  .title { font-size: 20pt; }
+}
