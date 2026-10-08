@@ -34,6 +34,7 @@
 
 .card {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 10px;
 }
@@ -270,4 +271,78 @@
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
+}
+
+.text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.time {
+  color: var(--text-sub);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.detail {
+  display: flex;
+  flex-basis: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 0 4px 6px;
+}
+
+.minRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.minVal {
+  min-width: 72px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.chip {
+  min-width: 48px;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.chipOn {
+  background: var(--yellow);
+}
+
+.setRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.setRow > span,
+.setRow > label {
+  min-width: 110px;
+  font-weight: 700;
+}
+
+.hint {
+  margin: 0;
+  color: var(--text-sub);
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
