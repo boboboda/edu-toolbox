@@ -2,19 +2,11 @@
 
 import { useState } from "react";
 import styles from "./EmotionCards.module.css";
+import { EMOTIONS, faceSvg } from "@/lib/emotions";
 
-type Emotion = { emoji: string; name: string; say: string; tip: string };
-
-const EMOTIONS: Emotion[] = [
-  { emoji: "😊", name: "기뻐요", say: "나는 기뻐요", tip: "좋은 일이 있어서 웃음이 나요." },
-  { emoji: "😢", name: "슬퍼요", say: "나는 슬퍼요", tip: "눈물이 나고 마음이 아파요. 도와 달라고 말해도 돼요." },
-  { emoji: "😠", name: "화나요", say: "나는 화가 나요", tip: "숨을 크게 쉬어 봐요. 잠깐 쉬어도 돼요." },
-  { emoji: "😨", name: "무서워요", say: "나는 무서워요", tip: "선생님에게 말해요. 안전한 곳에 있어요." },
-  { emoji: "😴", name: "졸려요", say: "나는 졸려요", tip: "몸이 피곤해요. 쉬고 싶다고 말해요." },
-  { emoji: "🤢", name: "아파요", say: "나는 아파요", tip: "어디가 아픈지 손으로 가리켜요." },
-  { emoji: "😳", name: "부끄러워요", say: "나는 부끄러워요", tip: "얼굴이 뜨거워요. 괜찮아요." },
-  { emoji: "🤩", name: "신나요", say: "나는 신나요", tip: "기대되고 몸이 들썩여요." },
-];
+function Face({ i }: { i: number }) {
+  return <span dangerouslySetInnerHTML={{ __html: faceSvg(EMOTIONS[i]) }} />;
+}
 
 function speak(text: string) {
   try {
@@ -37,7 +29,7 @@ export default function EmotionCards() {
       <div className={styles.big} aria-live="polite">
         {cur ? (
           <>
-            <span className={styles.bigPic} aria-hidden="true">{cur.emoji}</span>
+            <span className={styles.bigPic}><Face i={sel as number} /></span>
             <span className={styles.bigName}>{cur.name}</span>
             <span className={styles.tip}>{cur.tip}</span>
           </>
@@ -58,7 +50,7 @@ export default function EmotionCards() {
               speak(e.say);
             }}
           >
-            <span className={styles.pic} aria-hidden="true">{e.emoji}</span>
+            <span className={styles.pic}><Face i={i} /></span>
             <span>{e.name}</span>
           </button>
         ))}
