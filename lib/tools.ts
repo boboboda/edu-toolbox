@@ -48,4 +48,12 @@ export const TOOLS: Tool[] = [
     d: "M4 6h7v12H4zM13 6h7v12h-7zM7.5 12h0M16.5 12h0",
     ready: true,
   },
+  {
+    href: "/tools/emotions",
+    title: "감정 카드",
+    desc: "얼굴 그림으로 지금 기분을 말해요. 누르면 읽어 줘요.",
+    tile: "tile-blue",
+    d: "M3.5 12a8.5 8.5 0 1 0 17 0a8.5 8.5 0 1 0-17 0M8.5 10h0M15.5 10h0M8.5 14.5c1 1.5 2.2 2 3.5 2s2.500-.5 3.500-2",
+    ready: true,
+  },
 ];
