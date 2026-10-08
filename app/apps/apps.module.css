@@ -43,3 +43,23 @@
   margin-top: auto;
   padding-top: 8px;
 }
+
+.detail {
+  max-width: 720px;
+}
+
+.detailCover {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.desc {
+  margin: 20px 0;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  word-break: keep-all;
+}

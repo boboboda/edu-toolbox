@@ -15,10 +15,6 @@ const HOMEPAGE = (
   process.env.HOMEPAGE_API_URL || "https://www.buyoungsilcoding.com"
 ).replace(/\/+$/, "");
 
-// 홈페이지 프로젝트 상세 화면 주소
-export const appDetailUrl = (slug: string) =>
-  `${HOMEPAGE}/project/${encodeURIComponent(slug)}`;
-
 // 표지 그림 주소: 상대 경로면 홈페이지 주소를 붙이고, 그 밖의 값은 쓰지 않는다.
 export function coverUrl(value: string | null): string | null {
   if (!value) return null;
@@ -39,3 +35,11 @@ export const platformLabel = (p: string) =>
 
 export const statusText = (s: string) =>
   s === "released" ? "출시됨" : s === "in-progress" ? "준비 중" : s;
+
+export async function fetchEduApp(slug: string) {
+  const res = await homepageFetch<{ app?: EduApp }>(
+    `/api/edu/apps/${encodeURIComponent(slug)}`,
+  );
+
+  return { ok: res.ok, status: res.status, app: res.data.app ?? null };
+}

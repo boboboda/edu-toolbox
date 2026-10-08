@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import {
-  appDetailUrl,
   coverUrl,
   fetchEduApps,
   platformLabel,
@@ -73,14 +72,12 @@ export default async function AppsPage() {
                       받으러 가기
                     </a>
                   )}
-                  <a
+                  <Link
                     className="btn btn-outline btn-small"
-                    href={appDetailUrl(app.slug)}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={`/apps/${encodeURIComponent(app.slug)}`}
                   >
                     자세히 보기
-                  </a>
+                  </Link>
                 </div>
               </article>
             );
